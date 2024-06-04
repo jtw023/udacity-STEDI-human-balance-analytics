@@ -67,7 +67,7 @@ Now I'm very confused and don't understand the point of that last statement but 
 
 The next task was sanitizing customer_trusted further to only include those with accelerometer data.
 For this I took the customer_trusted data and the accelerometer_trusted data from above
-and inner joined them on `customer_trusted.email = accelerometer_trusted.user`
+and inner joined them on `customer_trusted.email = accelerometer_trusted.user`.
 I then did a drop fields transform to drop the fields from the accelerometer_trusted table.
 Finally, the last step of the transformation process was a drop duplicates to only return
 1 row per customer before putting this into my customer_curated s3 directory.
