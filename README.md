@@ -74,7 +74,7 @@ Finally, the last step of the transformation process was a drop duplicates to on
 
 The last two Glue jobs requested are where it got a bit weird for me. Despite the validating
 that I did above, step_trainer_landing has no way to be joined up to accelerometer_landing or customer_landing.
-Everytime I try joining it returns nothing. I made a Glue job to test all the joins
+Everytime I try joining, it returns nothing. I made a Glue job to test all the joins
 and even looked at the screenshot diagram in the instructions to verify my findings but nothing works.
 I tried joining step_trainer_landing to accelerometer_landing via `step_trainer.sensorreadingtime = accelerometer.timestamp`.
 I also tried joining step_trainer_landing to customer_landing via `step_trainer.serialnumber = customer.serialnumber`.
