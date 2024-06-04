@@ -42,6 +42,8 @@ CustomerCuratedandStepTrainerLanding_node1717496299412 = Join.apply(frame1=StepT
 DropFieldsfromCustomerCuratedJoin_node1717496722995 = DropFields.apply(frame=CustomerCuratedandStepTrainerLanding_node1717496299412, paths=[], transformation_ctx="DropFieldsfromCustomerCuratedJoin_node1717496722995")
 
 # Script generated for node Step Trainer Trusted 
-StepTrainerTrusted_node1717491875178 = glueContext.write_dynamic_frame.from_options(frame=DropFieldsfromCustomerCuratedJoin_node1717496722995, connection_type="s3", format="json", connection_options={"path": "s3://jwawss3testbucket/step_trainer/trusted/", "compression": "snappy", "partitionKeys": []}, transformation_ctx="StepTrainerTrusted_node1717491875178")
-
+StepTrainerTrusted_node1717491875178 = glueContext.getSink(path="s3://jwawss3testbucket/step_trainer/trusted/", connection_type="s3", updateBehavior="UPDATE_IN_DATABASE", partitionKeys=[], compression="snappy", enableUpdateCatalog=True, transformation_ctx="StepTrainerTrusted_node1717491875178")
+StepTrainerTrusted_node1717491875178.setCatalogInfo(catalogDatabase="step trainer landing",catalogTableName="step_trainer_catalog")
+StepTrainerTrusted_node1717491875178.setFormat("json")
+StepTrainerTrusted_node1717491875178.writeFrame(DropFieldsfromCustomerCuratedJoin_node1717496722995)
 job.commit()
