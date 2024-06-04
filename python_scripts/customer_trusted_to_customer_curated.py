@@ -27,20 +27,20 @@ AccelerometerTrusted_node1717491250474 = glueContext.create_dynamic_frame.from_o
 CustomerLanding_node1717517901802 = glueContext.create_dynamic_frame.from_options(format_options={"multiline": False}, connection_type="s3", format="json", connection_options={"paths": ["s3://jwawss3testbucket/customers/landing/"], "recurse": True}, transformation_ctx="CustomerLanding_node1717517901802")
 
 # Script generated for node Remove Non-Consensual
-SqlQuery1684 = '''
+SqlQuery1779 = '''
 SELECT
     *
 FROM myDataSource
 WHERE shareWithResearchAsOfDate IS NOT NULL
 
 '''
-RemoveNonConsensual_node1717519529420 = sparkSqlQuery(glueContext, query = SqlQuery1684, mapping = {"myDataSource":CustomerLanding_node1717517901802}, transformation_ctx = "RemoveNonConsensual_node1717519529420")
+RemoveNonConsensual_node1717519529420 = sparkSqlQuery(glueContext, query = SqlQuery1779, mapping = {"myDataSource":CustomerLanding_node1717517901802}, transformation_ctx = "RemoveNonConsensual_node1717519529420")
 
 # Script generated for node Only Accelerometer Join
 OnlyAccelerometerJoin_node1717491210216 = Join.apply(frame1=AccelerometerTrusted_node1717491250474, frame2=RemoveNonConsensual_node1717519529420, keys1=["user"], keys2=["email"], transformation_ctx="OnlyAccelerometerJoin_node1717491210216")
 
 # Script generated for node Remove PII
-SqlQuery1685 = '''
+SqlQuery1780 = '''
 SELECT
     serialNumber,
     birthDay,
@@ -48,14 +48,14 @@ SELECT
     shareWithResearchAsOfDate,
     CONCAT(SUBSTRING(SPLIT_PART(customerName, ' ', 1), 0, 1), SUBSTRING(SPLIT_PART(customerName, ' ', 2), 0, 1)) AS customerInitials,
     shareWithFriendsAsOfDate,
-    SPLIT_PART(email, '@', 2) AS emailDomain,
+    email,
     lastUpdateDate,
     phone,
     shareWithPublicAsOfDate
 FROM myDataSource
 
 '''
-RemovePII_node1717518131144 = sparkSqlQuery(glueContext, query = SqlQuery1685, mapping = {"myDataSource":OnlyAccelerometerJoin_node1717491210216}, transformation_ctx = "RemovePII_node1717518131144")
+RemovePII_node1717518131144 = sparkSqlQuery(glueContext, query = SqlQuery1780, mapping = {"myDataSource":OnlyAccelerometerJoin_node1717491210216}, transformation_ctx = "RemovePII_node1717518131144")
 
 # Script generated for node Drop Duplicates
 DropDuplicates_node1717491662868 =  DynamicFrame.fromDF(RemovePII_node1717518131144.toDF().dropDuplicates(), glueContext, "DropDuplicates_node1717491662868")

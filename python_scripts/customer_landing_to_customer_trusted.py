@@ -26,7 +26,7 @@ CustomerLanding_node1717487795825 = glueContext.create_dynamic_frame.from_option
 DropNonConsenting_node1717487921527 = Filter.apply(frame=CustomerLanding_node1717487795825, f=lambda row: (not(row["shareWithResearchAsOfDate"] == 0)), transformation_ctx="DropNonConsenting_node1717487921527")
 
 # Script generated for node Remove PII
-SqlQuery1764 = '''
+SqlQuery1927 = '''
 SELECT
     serialNumber,
     birthDay,
@@ -34,14 +34,14 @@ SELECT
     shareWithResearchAsOfDate,
     CONCAT(SUBSTRING(SPLIT_PART(customerName, ' ', 1), 0, 1), SUBSTRING(SPLIT_PART(customerName, ' ', 2), 0, 1)) AS customerInitials,
     shareWithFriendsAsOfDate,
-    SPLIT_PART(email, '@', 2) AS emailDomain,
+    email,
     lastUpdateDate,
     phone,
     shareWithPublicAsOfDate
 FROM myDataSource
 
 '''
-RemovePII_node1717515620498 = sparkSqlQuery(glueContext, query = SqlQuery1764, mapping = {"myDataSource":DropNonConsenting_node1717487921527}, transformation_ctx = "RemovePII_node1717515620498")
+RemovePII_node1717515620498 = sparkSqlQuery(glueContext, query = SqlQuery1927, mapping = {"myDataSource":DropNonConsenting_node1717487921527}, transformation_ctx = "RemovePII_node1717515620498")
 
 # Script generated for node Amazon S3
 AmazonS3_node1717488080223 = glueContext.getSink(path="s3://jwawss3testbucket/customers/trusted/", connection_type="s3", updateBehavior="UPDATE_IN_DATABASE", partitionKeys=[], enableUpdateCatalog=True, transformation_ctx="AmazonS3_node1717488080223")

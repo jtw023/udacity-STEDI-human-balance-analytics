@@ -28,7 +28,7 @@ AccelerometerLanding_node1717487795825 = glueContext.create_dynamic_frame.from_o
 AccelerometertoCustomerJoin_node1717488816137 = Join.apply(frame1=CustomerLanding_node1717488763241, frame2=AccelerometerLanding_node1717487795825, keys1=["email"], keys2=["user"], transformation_ctx="AccelerometertoCustomerJoin_node1717488816137")
 
 # Script generated for node SQL Remove Non-Consent
-SqlQuery1817 = '''
+SqlQuery1692 = '''
 SELECT
     myDataSource.user,
     myDataSource.timestamp,
@@ -38,7 +38,7 @@ SELECT
 FROM myDataSource
 WHERE sharewithresearchasofdate IS NOT NULL
 '''
-SQLRemoveNonConsent_node1717489716736 = sparkSqlQuery(glueContext, query = SqlQuery1817, mapping = {"myDataSource":AccelerometertoCustomerJoin_node1717488816137}, transformation_ctx = "SQLRemoveNonConsent_node1717489716736")
+SQLRemoveNonConsent_node1717489716736 = sparkSqlQuery(glueContext, query = SqlQuery1692, mapping = {"myDataSource":AccelerometertoCustomerJoin_node1717488816137}, transformation_ctx = "SQLRemoveNonConsent_node1717489716736")
 
 # Script generated for node Accelerometer Trusted
 AccelerometerTrusted_node1717488080223 = glueContext.getSink(path="s3://jwawss3testbucket/accelerometer/trusted/", connection_type="s3", updateBehavior="UPDATE_IN_DATABASE", partitionKeys=[], enableUpdateCatalog=True, transformation_ctx="AccelerometerTrusted_node1717488080223")
