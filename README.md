@@ -126,3 +126,15 @@ SELECT COUNT(*) FROM accelerometer_trusted
 SELECT COUNT(*) FROM customer_curated
 ```
     Output: 482
+
+
+# PII Discusions
+
+Emails are PII but since they are being used to join the
+customers table with the accelerometer table I can't really
+filter that in any way. Normally I would filter an email field
+down to just the domain if it's unencrypted in a database but
+that makes it unjoinable.
+
+I did, however, show just first and last initial instead of the
+full name.
