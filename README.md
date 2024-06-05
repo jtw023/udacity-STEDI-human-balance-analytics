@@ -103,6 +103,11 @@ SELECT COUNT(*) FROM customer_landing
     Output: 956
 
 ```SQL
+SELECT sharewithresearchasofdate FROM customer_landing WHERE sharewithresearchasofdate IS NULL
+```
+    Output: 474
+
+```SQL
 SELECT COUNT(*) FROM accelerometer_landing
 ```
     Output: 81273
@@ -116,6 +121,11 @@ SELECT COUNT(*) FROM step_trainer_landing
 SELECT COUNT(*) FROM customer_trusted
 ```
     Output: 482
+
+```SQL
+SELECT * FROM customer_trusted WHERE sharewithresearchasofdate IS NULL
+```
+    Output: 0
 
 ```SQL
 SELECT COUNT(*) FROM accelerometer_trusted
