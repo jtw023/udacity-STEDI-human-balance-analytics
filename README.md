@@ -144,7 +144,10 @@ Emails are PII but since they are being used to join the
 customers table with the accelerometer table I can't really
 filter that in any way. Normally I would filter an email field
 down to just the domain if it's unencrypted in a database but
-that makes it unjoinable.
+that makes it unjoinable. I did, however, show just first and
+last initial instead of the full name.
 
-I did, however, show just first and last initial instead of the
-full name.
+This is horrible database design. At least hash the email and join on that.
+This way you can keep a hash in your landing table as well as the encrypted
+email so that you can still find it in plain text if needed but for analytics
+there will only ever be the hash and that hash can be used to join.
